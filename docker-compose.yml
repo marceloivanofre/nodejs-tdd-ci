@@ -1,0 +1,28 @@
+version: '3'
+services:
+  api:
+    build: .
+    volumes:
+      - .:/home/app/node-tdd
+      - /home/app/node-tdd/node_modules
+    ports:
+      - '5000:5000'
+    command: sh -c 'npm run build'
+    networks:
+      - backend
+  postgres:
+    image: postgres:12.2-alpine
+    restart: 'always'
+    volumes:
+      - ./.dbcache/postgresql:/var/lib/postgresql
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: '${DB_USER}'
+      POSTGRES_PASSWORD: '${DB_PASS}'
+      PG_DATA: /var/lib/postgresql
+    networks:
+      - backend
+networks:
+  backend:
+    driver: 'bridge'

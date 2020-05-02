@@ -1,0 +1,11 @@
+# folders #
+node_modules
+dist
+.dbcache
+
+# files #
+.env
+
+# tests #
+__tests__/**/coverage
+__tests__/**/*.sqlite
